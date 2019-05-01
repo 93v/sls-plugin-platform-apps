@@ -41,11 +41,11 @@ jobs:
 
       - run:
           name: Linting
-          command: npm lint
+          command: npm run lint
 
       - run:
           name: Testing
-          command: npm test
+          command: npm run test
 
   build:
     <<: *defaults
@@ -56,7 +56,7 @@ jobs:
 
       - run:
           name: Building
-          command: npm build
+          command: npm run build
 
   publish:
     <<: *defaults
