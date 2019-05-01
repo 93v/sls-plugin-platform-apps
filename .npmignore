@@ -7,3 +7,6 @@ coverage/
 .node-version
 .python-version
 nodemon.json
+.editorconfig
+.eslintrc.js
+jest.config.js
