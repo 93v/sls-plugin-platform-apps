@@ -39,7 +39,7 @@
     "jest": "^24.7.1",
     "nodemon": "^1.19.0",
     "serverless": "^1.41.1",
-    "starve": "^3.0.0",
+    "starve": "^3.0.1",
     "tslint": "^5.16.0",
     "typescript": "^3.4.5"
   },
