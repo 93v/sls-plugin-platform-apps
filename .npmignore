@@ -4,3 +4,6 @@ tslint.json
 .vscode/
 coverage/
 .nyc_output/
+.node-version
+.python-version
+nodemon.json
