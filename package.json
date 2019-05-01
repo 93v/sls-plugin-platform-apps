@@ -8,6 +8,7 @@
     "test": "echo \"Error: no test specified\"",
     "build": "tsc -p src",
     "watch": "tsc -p src -w",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "lint": "tslint -p src/",
     "start": "nodemon",
     "postversion": "tag=$(git tag --points-at HEAD) && git push && git push origin $tag"
@@ -45,5 +46,8 @@
   },
   "dependencies": {
     "ts-optchain": "^0.1.6"
-  }
+  },
+  "files": [
+    "dist/**/*"
+  ]
 }
