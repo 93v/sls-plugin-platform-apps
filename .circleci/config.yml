@@ -5,7 +5,7 @@ defaults: &defaults
 
 version: 2
 jobs:
-  install:
+  publish:
     <<: *defaults
 
     steps:
@@ -27,18 +27,6 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package-lock.json" }}
 
-      - persist_to_workspace:
-          root: "~"
-          paths:
-            - repo
-
-  test:
-    <<: *defaults
-
-    steps:
-      - attach_workspace:
-          at: "~"
-
       - run:
           name: Linting
           command: npm run lint
@@ -47,25 +35,14 @@ jobs:
           name: Testing
           command: npm run test
 
-  build:
-    <<: *defaults
-
-    steps:
-      - attach_workspace:
-          at: "~"
-
       - run:
           name: Building
           command: npm run build
 
-  publish:
-    <<: *defaults
-
-    steps:
-      - checkout
       - run:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/repo/.npmrc
+
       - run:
           name: Publish package
           command: npm publish
@@ -74,20 +51,7 @@ workflows:
   version: 2
   publish:
     jobs:
-      - install
-      - test:
-          requires:
-            - install
-      - build:
-          filters:
-            branches:
-              only:
-                - master
-          requires:
-            - test
       - publish:
-          requires:
-            - build
           filters:
             tags:
               only: /^v.*/
