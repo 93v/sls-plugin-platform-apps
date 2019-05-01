@@ -5,6 +5,7 @@ before_deploy:
   - npm run lint
   - npm run test
   - npm run build
+  - cd dist
 deploy:
   provider: npm
   email: "&NPM_EMAIL"
