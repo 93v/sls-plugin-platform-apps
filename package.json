@@ -1,6 +1,6 @@
 {
   "name": "sls-plugin-platform-apps",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Serverless Framework Plugin to Deploy and Remove AWS Platform Apps",
   "main": "dist/index.js",
   "scripts": {
