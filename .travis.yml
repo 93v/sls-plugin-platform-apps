@@ -3,13 +3,8 @@ install:
   - DEBUG=true npm install
 before_deploy:
   - npm run lint
-  - ls
   - npm run test
-  - ls
   - npm run build
-  - ls
-  - cd dist
-  - ls
 deploy:
   provider: npm
   email: "&NPM_EMAIL"
