@@ -62,3 +62,7 @@ To remove all Platform Apps without removing the Serverless service, use:
 ```bash
 sls remove platformApps
 ```
+
+## TODO
+
+- Add tests
