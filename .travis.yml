@@ -1,4 +1,10 @@
 language: generic
+install:
+  - DEBUG=true npm install
+script:
+  - npm run lint
+  - npm run test
+  - npm run build
 deploy:
   provider: npm
   email: "&NPM_EMAIL"
