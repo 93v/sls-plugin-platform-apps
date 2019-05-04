@@ -7,7 +7,7 @@ import { IServerlessPluginCommand } from '../types/serverless-plugin-command';
 
 class ServerlessPlugin {
   public hooks: {
-    [event: string]: () => Promise<void>;
+    [event: string]: () => Promise<any>;
   };
   public commands: {
     [command: string]: IServerlessPluginCommand;
@@ -42,10 +42,10 @@ class ServerlessPlugin {
     };
 
     this.hooks = {
-      'after:info:info': this.getPlatformAppsInfo.bind(this),
-      'before:deploy:deploy': this.deployPlatformApps.bind(this),
-      'deploy:platformApps:deploy': this.deployPlatformApps.bind(this),
-      'remove:platformApps:remove': this.removePlatformApps.bind(this),
+      'after:info:info': this.getPlatformAppsInfo,
+      'before:deploy:deploy': this.deployPlatformApps,
+      'deploy:platformApps:deploy': this.deployPlatformApps,
+      'remove:platformApps:remove': this.removePlatformApps,
     };
 
     const apps = oc(this.serverless).service.custom.platformApps(
@@ -59,7 +59,7 @@ class ServerlessPlugin {
     });
   }
 
-  private isValidPlatformApp(app: IPlatformApp) {
+  private isValidPlatformApp = (app: IPlatformApp) => {
     return (
       typeof app.credential === 'string' &&
       app.credential !== '' &&
@@ -70,7 +70,7 @@ class ServerlessPlugin {
     );
   }
 
-  private getApps(purpose: 'deploy' | 'remove' | 'describe' = 'deploy') {
+  private getApps = (purpose: 'deploy' | 'remove' | 'describe' = 'deploy') => {
     if (Object.keys(this.platformAppsMap).length === 0) {
       throw new Error(
         'No Platform Apps are defined. Add one to custom.platformApps section',
@@ -93,7 +93,7 @@ class ServerlessPlugin {
     return apps;
   }
 
-  private async deployPlatformApps() {
+  private deployPlatformApps = async () => {
     try {
       return this.deployApps(this.getApps('deploy'));
     } catch (error) {
@@ -102,7 +102,7 @@ class ServerlessPlugin {
     }
   }
 
-  private async removePlatformApps() {
+  private removePlatformApps = async () => {
     try {
       return this.removeApps(this.getApps('remove'));
     } catch (error) {
@@ -111,7 +111,7 @@ class ServerlessPlugin {
     }
   }
 
-  private async getPlatformAppsInfo() {
+  private getPlatformAppsInfo = async () => {
     try {
       return this.describeApps(this.getApps('describe'));
     } catch (error) {
@@ -120,31 +120,31 @@ class ServerlessPlugin {
     }
   }
 
-  private async deployApps(apps: IPlatformAppsMap) {
+  private deployApps = async (apps: IPlatformAppsMap) => {
     this.serverless.cli.log('Deploying platform apps...');
     await Promise.all(
       Object.values(apps).map(async (app) => {
         await this.createApp(app);
         this.serverless.cli.log(
-          `Platform app ${app.name} successfully created/updated.`,
+          `Platform app ${app.name} successfully created/updated!`,
         );
       }),
     );
   }
 
-  private async removeApps(apps: IPlatformAppsMap) {
+  private removeApps = async (apps: IPlatformAppsMap) => {
     this.serverless.cli.log('Removing platform apps...');
     await Promise.all(
       Object.values(apps).map(async (app) => {
         await this.deleteApp(app);
         this.serverless.cli.log(
-          `Platform app ${app.name} successfully deleted.`,
+          `Platform app ${app.name} successfully deleted!`,
         );
       }),
     );
   }
 
-  private async describeApps(apps: IPlatformAppsMap) {
+  private describeApps = async (apps: IPlatformAppsMap) => {
     this.serverless.cli.log('Describing platform apps...');
     const platformApps = await Promise.all(
       Object.values(apps).map(async (app) => ({
@@ -157,7 +157,7 @@ class ServerlessPlugin {
     );
   }
 
-  private async createApp(app: IPlatformApp) {
+  private createApp = async (app: IPlatformApp) => {
     this.serverless.cli.log(`Creating/Updating platform app ${app.name}...`);
     return this.provider.request(
       'SNS',
@@ -172,7 +172,7 @@ class ServerlessPlugin {
     );
   }
 
-  private async deleteApp(app: IPlatformApp) {
+  private deleteApp = async (app: IPlatformApp) => {
     const arn = await this.describeApp(app);
     if (arn == null) {
       this.serverless.cli.log(`  ${app.name}: does not exist`);
@@ -188,7 +188,7 @@ class ServerlessPlugin {
     );
   }
 
-  private async describeApp(app: IPlatformApp) {
+  private describeApp = async (app: IPlatformApp) => {
     try {
       const response = await this.provider.request(
         'SNS',
