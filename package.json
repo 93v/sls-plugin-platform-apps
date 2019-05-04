@@ -3,15 +3,19 @@
   "version": "0.1.2",
   "description": "Serverless Framework Plugin to Deploy and Remove AWS Platform Apps",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "postinstall": "starve",
-    "test": "echo \"Error: no test specified\"",
-    "build": "tsc -p src",
-    "watch": "tsc -p src -w",
-    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
-    "lint": "tslint -p src/",
-    "start": "nodemon",
-    "postversion": "tag=$(git tag --points-at HEAD) && git push && git push origin $tag"
+    "lint": "tslint -p tsconfig.json",
+    "test": "jest",
+    "test:watch": "jest --watchAll",
+    "build": "tsc",
+    "watch": "tsc -w",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test && npm run lint",
+    "preversion": "npm run lint",
+    "version": "git add -A src",
+    "postversion": "git push && git push --tags",
+    "start": "nodemon"
   },
   "repository": {
     "type": "git",
@@ -27,7 +31,10 @@
     "apps",
     "gcm"
   ],
-  "author": "93v <93v@protonmail.com>",
+  "author": {
+    "name": "93v",
+    "email": "93v@protonmail.com"
+  },
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/93v/sls-plugin-platform-apps/issues"
@@ -35,19 +42,20 @@
   "homepage": "https://github.com/93v/sls-plugin-platform-apps#readme",
   "devDependencies": {
     "@types/jest": "^24.0.12",
-    "@types/node": "^11.13.8",
+    "@types/node": "^12.0.0",
+    "@types/serverless": "^1.18.2",
     "eslint": "^5.16.0",
     "jest": "^24.7.1",
     "nodemon": "^1.19.0",
     "serverless": "^1.41.1",
-    "starve": "^3.0.7",
+    "ts-jest": "^24.0.2",
     "tslint": "^5.16.0",
     "typescript": "^3.4.5"
   },
-  "dependencies": {
-    "ts-optchain": "^0.1.6"
-  },
   "files": [
     "dist/**/*"
-  ]
+  ],
+  "dependencies": {
+    "ts-optchain": "^0.1.6"
+  }
 }

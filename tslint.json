@@ -3,7 +3,7 @@
   "extends": ["tslint:recommended", "tslint:latest"],
   "jsRules": {},
   "rules": {
-    "no-implicit-dependencies": [true, "dev"],
+    "no-implicit-dependencies": [false, "dev"],
     "no-submodule-imports": false,
     "quotemark": [true, "single"]
   },

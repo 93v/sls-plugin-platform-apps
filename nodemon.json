@@ -1,5 +1,5 @@
 {
-  "watch": ["./", "src", "@types"],
+  "watch": ["src", "types", "@types"],
   "ext": "ts",
   "exec": "npm run watch && npm link"
 }
