@@ -8,11 +8,13 @@
     "lint": "tslint -p tsconfig.json",
     "test": "jest",
     "build": "tsc",
+    "watch": "tsc -w",
     "prepare": "npm run build",
     "prepublishOnly": "npm test && npm run lint",
     "preversion": "npm run lint",
     "version": "git add -A src",
-    "postversion": "git push && git push --tags"
+    "postversion": "git push && git push --tags",
+    "start": "nodemon"
   },
   "repository": {
     "type": "git",
@@ -42,6 +44,7 @@
     "@types/node": "^12.0.0",
     "eslint": "^5.16.0",
     "jest": "^24.7.1",
+    "nodemon": "^1.19.0",
     "ts-jest": "^24.0.2",
     "tslint": "^5.16.0",
     "typescript": "^3.4.5"
