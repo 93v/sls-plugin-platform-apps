@@ -1,26 +1,10 @@
 module.exports = {
   extends: ['eslint:recommended'],
-  parserOptions: {
-    ecmaVersion: 2017,
-  },
-  env: {
-    browser: true,
-    node: true,
-    es6: true,
-  },
-  globals: {
-    APP_CONFIG: true,
-    angular: true,
-    google: true,
-    module: true,
-    moment: true,
-    process: true,
-    require: true,
-    describe: true,
-    it: true,
-  },
+  parserOptions: { ecmaVersion: 2017 },
+  env: { browser: true, node: true, es6: true },
+  globals: { module: true, process: true, require: true },
   rules: {
-    eqeqeq: 'error',
+    eqeqeq: ['error', 'allow-null'],
     indent: ['error', 2],
     'linebreak-style': ['error', 'unix'],
     'max-len': ['error', 80],
