@@ -19,7 +19,7 @@ jobs:
             - v1-dependencies-
 
       - run:
-          name: Installing node modules
+          name: Install node modules
           command: npm install
 
       - save_cache:
@@ -40,11 +40,11 @@ jobs:
           at: "~"
 
       - run:
-          name: Linting
+          name: Lint
           command: npm run lint
 
       - run:
-          name: Testing
+          name: Test
           command: npm run test
 
       - persist_to_workspace:
@@ -60,7 +60,7 @@ jobs:
           at: "~"
 
       - run:
-          name: Building
+          name: Build
           command: npm run build
 
       - persist_to_workspace:
