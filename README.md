@@ -1,5 +1,17 @@
 # sls-plugin-platform-apps
 
+![David](https://img.shields.io/david/dev/93v/sls-plugin-platform-apps.svg)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/93v/sls-plugin-platform-apps.svg)
+![GitHub repo size](https://img.shields.io/github/repo-size/93v/sls-plugin-platform-apps.svg)
+![npm](https://img.shields.io/npm/dw/sls-plugin-platform-apps.svg)
+![npm](https://img.shields.io/npm/dm/sls-plugin-platform-apps.svg)
+![npm](https://img.shields.io/npm/dy/sls-plugin-platform-apps.svg)
+![npm](https://img.shields.io/npm/dt/sls-plugin-platform-apps.svg)
+![NPM](https://img.shields.io/npm/l/sls-plugin-platform-apps.svg)
+![npm](https://img.shields.io/npm/v/sls-plugin-platform-apps.svg)
+![GitHub last commit](https://img.shields.io/github/last-commit/93v/sls-plugin-platform-apps.svg)
+![npm collaborators](https://img.shields.io/npm/collaborators/sls-plugin-platform-apps.svg)
+
 Serverless Framework Plugin to Deploy and Remove AWS Platform Apps
 
 ## Installation
