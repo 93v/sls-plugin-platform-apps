@@ -85,7 +85,7 @@ jobs:
 
 workflows:
   version: 2
-  install_test_build_publish:
+  install_test_build:
     jobs:
       - install
       - test:
@@ -97,8 +97,6 @@ workflows:
   publish:
     jobs:
       - publish:
-          requires:
-            - build
           filters:
             tags:
               only: /^v.*/
