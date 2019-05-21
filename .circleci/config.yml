@@ -85,7 +85,7 @@ jobs:
 
 workflows:
   version: 2
-  publish:
+  install_test_build_publish:
     jobs:
       - install
       - test:
