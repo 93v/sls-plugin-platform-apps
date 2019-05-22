@@ -4,8 +4,7 @@
   "jsRules": {},
   "rules": {
     "no-implicit-dependencies": [false, "dev"],
-    "no-submodule-imports": false,
-    "quotemark": [true, "single"]
+    "no-submodule-imports": false
   },
   "rulesDirectory": []
 }
