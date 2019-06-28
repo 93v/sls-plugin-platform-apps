@@ -6,17 +6,17 @@ import { IServerlessOptions } from "../types/serverless-options";
 import { IServerlessPluginCommand } from "../types/serverless-plugin-command";
 
 class ServerlessPlugin {
-  public hooks: {
+  public readonly hooks: {
     [event: string]: () => Promise<any>;
   };
-  public commands: {
+  public readonly commands: {
     [command: string]: IServerlessPluginCommand;
   };
-  public provider: IProvider;
-  private platformAppsMap: IPlatformAppsMap;
+  public readonly provider: IProvider;
+  private readonly platformAppsMap: IPlatformAppsMap;
   constructor(
-    private serverless: Serverless,
-    private options: IServerlessOptions,
+    private readonly serverless: Serverless,
+    private readonly options: IServerlessOptions,
   ) {
     this.provider = this.serverless.getProvider("aws");
 
@@ -59,7 +59,7 @@ class ServerlessPlugin {
     });
   }
 
-  private isValidPlatformApp = (app: IPlatformApp) => {
+  private readonly isValidPlatformApp = (app: IPlatformApp) => {
     return (
       typeof app.credential === "string" &&
       app.credential !== "" &&
@@ -70,7 +70,9 @@ class ServerlessPlugin {
     );
   }
 
-  private getApps = (purpose: "deploy" | "remove" | "describe" = "deploy") => {
+  private readonly getApps = (
+    purpose: "deploy" | "remove" | "describe" = "deploy",
+  ) => {
     if (Object.keys(this.platformAppsMap).length === 0) {
       throw new Error(
         "No Platform Apps are defined. Add one to custom.platformApps section",
@@ -93,7 +95,7 @@ class ServerlessPlugin {
     return apps;
   }
 
-  private deployPlatformApps = async () => {
+  private readonly deployPlatformApps = async () => {
     try {
       return this.deployApps(this.getApps("deploy"));
     } catch (error) {
@@ -102,7 +104,7 @@ class ServerlessPlugin {
     }
   }
 
-  private removePlatformApps = async () => {
+  private readonly removePlatformApps = async () => {
     try {
       return this.removeApps(this.getApps("remove"));
     } catch (error) {
@@ -111,7 +113,7 @@ class ServerlessPlugin {
     }
   }
 
-  private getPlatformAppsInfo = async () => {
+  private readonly getPlatformAppsInfo = async () => {
     try {
       return this.describeApps(this.getApps("describe"));
     } catch (error) {
@@ -120,7 +122,7 @@ class ServerlessPlugin {
     }
   }
 
-  private deployApps = async (apps: IPlatformAppsMap) => {
+  private readonly deployApps = async (apps: IPlatformAppsMap) => {
     this.serverless.cli.log("Deploying platform apps...");
     await Promise.all(
       Object.values(apps).map(async (app) => {
@@ -132,7 +134,7 @@ class ServerlessPlugin {
     );
   }
 
-  private removeApps = async (apps: IPlatformAppsMap) => {
+  private readonly removeApps = async (apps: IPlatformAppsMap) => {
     this.serverless.cli.log("Removing platform apps...");
     await Promise.all(
       Object.values(apps).map(async (app) => {
@@ -144,7 +146,7 @@ class ServerlessPlugin {
     );
   }
 
-  private describeApps = async (apps: IPlatformAppsMap) => {
+  private readonly describeApps = async (apps: IPlatformAppsMap) => {
     this.serverless.cli.log("Describing platform apps...");
     const platformApps = await Promise.all(
       Object.values(apps).map(async (app) => ({
@@ -157,7 +159,7 @@ class ServerlessPlugin {
     );
   }
 
-  private createApp = async (app: IPlatformApp) => {
+  private readonly createApp = async (app: IPlatformApp) => {
     this.serverless.cli.log(`Creating/Updating platform app ${app.name}...`);
     return this.provider.request(
       "SNS",
@@ -172,7 +174,7 @@ class ServerlessPlugin {
     );
   }
 
-  private deleteApp = async (app: IPlatformApp) => {
+  private readonly deleteApp = async (app: IPlatformApp) => {
     const arn = await this.describeApp(app);
     if (arn == null) {
       this.serverless.cli.log(`  ${app.name}: does not exist`);
@@ -188,7 +190,7 @@ class ServerlessPlugin {
     );
   }
 
-  private describeApp = async (app: IPlatformApp) => {
+  private readonly describeApp = async (app: IPlatformApp) => {
     try {
       const response = await this.provider.request(
         "SNS",
