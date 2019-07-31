@@ -5,7 +5,7 @@ import { IProvider } from "../types/provider";
 import { IServerlessOptions } from "../types/serverless-options";
 import { IServerlessPluginCommand } from "../types/serverless-plugin-command";
 
-class ServerlessPlugin {
+class ServerlessPlatformAppsPlugin {
   public readonly hooks: {
     [event: string]: () => Promise<any>;
   };
@@ -216,4 +216,4 @@ class ServerlessPlugin {
   }
 }
 
-export = ServerlessPlugin;
+export = ServerlessPlatformAppsPlugin;
