@@ -68,7 +68,7 @@ class ServerlessPlatformAppsPlugin {
       typeof app.platform === "string" &&
       ["GCM"].includes(app.platform.toUpperCase())
     );
-  }
+  };
 
   private readonly getApps = (
     purpose: "deploy" | "remove" | "describe" = "deploy",
@@ -93,7 +93,7 @@ class ServerlessPlatformAppsPlugin {
     }
 
     return apps;
-  }
+  };
 
   private readonly deployPlatformApps = async () => {
     try {
@@ -102,7 +102,7 @@ class ServerlessPlatformAppsPlugin {
       this.serverless.cli.log(error);
       return;
     }
-  }
+  };
 
   private readonly removePlatformApps = async () => {
     try {
@@ -111,7 +111,7 @@ class ServerlessPlatformAppsPlugin {
       this.serverless.cli.log(error);
       return;
     }
-  }
+  };
 
   private readonly getPlatformAppsInfo = async () => {
     try {
@@ -120,7 +120,7 @@ class ServerlessPlatformAppsPlugin {
       this.serverless.cli.log(error);
       return;
     }
-  }
+  };
 
   private readonly deployApps = async (apps: IPlatformAppsMap) => {
     this.serverless.cli.log("Deploying platform apps...");
@@ -132,7 +132,7 @@ class ServerlessPlatformAppsPlugin {
         );
       }),
     );
-  }
+  };
 
   private readonly removeApps = async (apps: IPlatformAppsMap) => {
     this.serverless.cli.log("Removing platform apps...");
@@ -144,7 +144,7 @@ class ServerlessPlatformAppsPlugin {
         );
       }),
     );
-  }
+  };
 
   private readonly describeApps = async (apps: IPlatformAppsMap) => {
     this.serverless.cli.log("Describing platform apps...");
@@ -157,7 +157,7 @@ class ServerlessPlatformAppsPlugin {
     platformApps.forEach((app) =>
       this.serverless.cli.log(`  ${app.name}: ${app.arn || "does not exist"}`),
     );
-  }
+  };
 
   private readonly createApp = async (app: IPlatformApp) => {
     this.serverless.cli.log(`Creating/Updating platform app ${app.name}...`);
@@ -172,7 +172,7 @@ class ServerlessPlatformAppsPlugin {
       this.options.stage,
       this.options.region,
     );
-  }
+  };
 
   private readonly deleteApp = async (app: IPlatformApp) => {
     const arn = await this.describeApp(app);
@@ -188,7 +188,7 @@ class ServerlessPlatformAppsPlugin {
       this.options.stage,
       this.options.region,
     );
-  }
+  };
 
   private readonly describeApp = async (app: IPlatformApp) => {
     try {
@@ -213,7 +213,7 @@ class ServerlessPlatformAppsPlugin {
       }
       throw error;
     }
-  }
+  };
 }
 
 export = ServerlessPlatformAppsPlugin;
