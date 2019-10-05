@@ -1,9 +1,7 @@
 export interface IPlatformApp {
+  credential?: string | null;
   name?: string | null;
   platform?: "GCM" | null;
-  credential?: string | null;
 }
 
-export interface IPlatformAppsMap {
-  [key: string]: IPlatformApp;
-}
+export type IPlatformAppsMap = Record<string, IPlatformApp>;

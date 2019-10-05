@@ -6,12 +6,8 @@ import { IServerlessOptions } from "../types/serverless-options";
 import { IServerlessPluginCommand } from "../types/serverless-plugin-command";
 
 class ServerlessPlatformAppsPlugin {
-  public readonly hooks: {
-    [event: string]: () => Promise<any>;
-  };
-  public readonly commands: {
-    [command: string]: IServerlessPluginCommand;
-  };
+  public readonly commands: Record<string, IServerlessPluginCommand>;
+  public readonly hooks: Record<string, () => Promise<any>>;
   public readonly provider: IProvider;
   private readonly platformAppsMap: IPlatformAppsMap;
   constructor(
