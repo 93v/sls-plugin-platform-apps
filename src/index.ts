@@ -1,5 +1,4 @@
 import Serverless from "serverless";
-import { oc } from "ts-optchain";
 import { IPlatformApp, IPlatformAppsMap } from "../types/platform-app";
 import { IProvider } from "../types/provider";
 import { IServerlessOptions } from "../types/serverless-options";
@@ -44,9 +43,8 @@ class ServerlessPlatformAppsPlugin {
       "remove:platformApps:remove": this.removePlatformApps,
     };
 
-    const apps = oc(this.serverless).service.custom.platformApps(
-      {},
-    ) as IPlatformAppsMap;
+    const apps: IPlatformAppsMap =
+      this.serverless.service?.custom?.platformApps || {};
     this.platformAppsMap = {};
     Object.keys(apps).forEach((k) => {
       if (this.isValidPlatformApp(apps[k])) {
