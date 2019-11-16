@@ -1,5 +1,5 @@
 import Serverless from "serverless";
 
-export interface IServerlessOptions extends Serverless.Options {
+export interface ServerlessOptions extends Serverless.Options {
   app?: string;
 }

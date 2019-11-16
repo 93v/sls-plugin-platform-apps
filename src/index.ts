@@ -1,17 +1,17 @@
 import Serverless from "serverless";
-import { IPlatformApp, IPlatformAppsMap } from "../types/platform-app";
-import { IProvider } from "../types/provider";
-import { IServerlessOptions } from "../types/serverless-options";
-import { IServerlessPluginCommand } from "../types/serverless-plugin-command";
+import { PlatformApp, IPlatformAppsMap } from "../types/platform-app";
+import { Provider } from "../types/provider";
+import { ServerlessOptions } from "../types/serverless-options";
+import { ServerlessPluginCommand } from "../types/serverless-plugin-command";
 
 class ServerlessPlatformAppsPlugin {
-  public readonly commands: Record<string, IServerlessPluginCommand>;
+  public readonly commands: Record<string, ServerlessPluginCommand>;
   public readonly hooks: Record<string, () => Promise<any>>;
-  public readonly provider: IProvider;
+  public readonly provider: Provider;
   private readonly platformAppsMap: IPlatformAppsMap;
   constructor(
     private readonly serverless: Serverless,
-    private readonly options: IServerlessOptions,
+    private readonly options: ServerlessOptions,
   ) {
     this.provider = this.serverless.getProvider("aws");
 
@@ -53,7 +53,7 @@ class ServerlessPlatformAppsPlugin {
     });
   }
 
-  private readonly isValidPlatformApp = (app: IPlatformApp) => {
+  private readonly isValidPlatformApp = (app: PlatformApp) => {
     return (
       typeof app.credential === "string" &&
       app.credential !== "" &&
@@ -153,7 +153,7 @@ class ServerlessPlatformAppsPlugin {
     );
   };
 
-  private readonly createApp = async (app: IPlatformApp) => {
+  private readonly createApp = async (app: PlatformApp) => {
     this.serverless.cli.log(`Creating/Updating platform app ${app.name}...`);
     return this.provider.request(
       "SNS",
@@ -168,7 +168,7 @@ class ServerlessPlatformAppsPlugin {
     );
   };
 
-  private readonly deleteApp = async (app: IPlatformApp) => {
+  private readonly deleteApp = async (app: PlatformApp) => {
     const arn = await this.describeApp(app);
     if (arn == null) {
       this.serverless.cli.log(`  ${app.name}: does not exist`);
@@ -184,7 +184,7 @@ class ServerlessPlatformAppsPlugin {
     );
   };
 
-  private readonly describeApp = async (app: IPlatformApp) => {
+  private readonly describeApp = async (app: PlatformApp) => {
     try {
       const response = await this.provider.request(
         "SNS",

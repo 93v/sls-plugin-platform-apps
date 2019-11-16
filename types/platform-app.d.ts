@@ -1,7 +1,7 @@
-export interface IPlatformApp {
+export interface PlatformApp {
   credential?: string | null;
   name?: string | null;
   platform?: "GCM" | null;
 }
 
-export type IPlatformAppsMap = Record<string, IPlatformApp>;
+export type IPlatformAppsMap = Record<string, PlatformApp>;
