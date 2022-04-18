@@ -93,7 +93,7 @@ class ServerlessPlatformAppsPlugin {
     try {
       return this.deployApps(this.getApps("deploy"));
     } catch (error) {
-      this.serverless.cli.log(error);
+      this.serverless.cli.log((error as Error).toString());
       return;
     }
   };
@@ -102,7 +102,7 @@ class ServerlessPlatformAppsPlugin {
     try {
       return this.removeApps(this.getApps("remove"));
     } catch (error) {
-      this.serverless.cli.log(error);
+      this.serverless.cli.log((error as Error).toString());
       return;
     }
   };
@@ -111,7 +111,7 @@ class ServerlessPlatformAppsPlugin {
     try {
       return this.describeApps(this.getApps("describe"));
     } catch (error) {
-      this.serverless.cli.log(error);
+      this.serverless.cli.log((error as Error).toString());
       return;
     }
   };
@@ -202,7 +202,10 @@ class ServerlessPlatformAppsPlugin {
         .map((a: any) => a.PlatformApplicationArn)
         .find((arn: string) => arn.includes(`/${app.platform}/${app.name}`));
     } catch (error) {
-      if (error.message && error.message.match(/does not exist$/)) {
+      if (
+        (error as Error).message &&
+        (error as Error).message.match(/does not exist$/)
+      ) {
         return null;
       }
       throw error;
